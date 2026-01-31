@@ -31,14 +31,12 @@ function calcBread(){
   const totalFlour=flourPerLoaf*count;
   const wholeWheatFlour=totalFlour*(wheatPercent/100);
   const whiteFlour=totalFlour-wholeWheatFlour;
-
   const water=totalFlour*(hydration/100);
   const salt=totalFlour*0.02;
   const yeastAmount=yeast==="sourdough"?totalFlour*0.2:totalFlour*0.01;
   const totalDough=totalFlour+water+salt+yeastAmount;
   const perLoaf=totalDough/count;
   const diff=flourAvailable-totalFlour;
-  const warning = diff<0 ? `<span class="warning">⚠ Not enough flour!</span>` : "";
 
   breadResults.innerHTML=`
   <strong>Total (${count} loaves):</strong><br>
@@ -49,7 +47,7 @@ function calcBread(){
   Salt: ${salt.toFixed(1)} g<br>
   Yeast: ${yeastAmount.toFixed(1)} g<br><br>
   <strong>Per loaf:</strong> ${perLoaf.toFixed(0)} g<br><br>
-  ${diff>=0?`You’ll have ${diff.toFixed(0)}g flour left.`:`You need ${Math.abs(diff).toFixed(0)}g more flour.`} ${warning}
+  ${diff>=0?`You’ll have ${diff.toFixed(0)}g flour left.`:`You need ${Math.abs(diff).toFixed(0)}g more flour.`}
   `;
 }
 
@@ -89,16 +87,13 @@ function calcPizza(){
   const doughOne=pizzaBase12*(size/12)**2;
   const flour= doughOne / (1 + hydration/100 + pizzaSaltPerc + yeastPerc);
   const totalFlourNeeded=flour*count;
-
   const wholeWheatFlour=totalFlourNeeded*(wheatPercent/100);
   const whiteFlour=totalFlourNeeded-wholeWheatFlour;
-
   const water= flour*(hydration/100)*count;
   const salt= flour*pizzaSaltPerc*count;
   const yeastAmount= flour*yeastPerc*count;
   const totalDough=(flour+flour*(hydration/100)+flour*pizzaSaltPerc+flour*yeastPerc)*count;
   const diff=flourAvailable-totalFlourNeeded;
-  const warning = diff<0 ? `<span class="warning">⚠ Not enough flour!</span>` : "";
 
   pizzaResultsDiv.innerHTML=`
     <strong>Total (${count} pizzas):</strong><br>
@@ -109,11 +104,10 @@ function calcPizza(){
     Salt: ${salt.toFixed(1)} g<br>
     Yeast: ${yeastAmount.toFixed(1)} g<br><br>
     <strong>Per pizza dough:</strong> ${doughOne.toFixed(0)} g<br><br>
-    ${diff>=0?`You’ll have ${diff.toFixed(0)}g flour left.`:`You need ${Math.abs(diff).toFixed(0)}g more flour.`} ${warning}
+    ${diff>=0?`You’ll have ${diff.toFixed(0)}g flour left.`:`You need ${Math.abs(diff).toFixed(0)}g more flour.`}
   `;
 }
 
-// Auto updates
 [breadFlour,breadWheat,breadCount,breadSize,breadHydration,breadYeast].forEach(el=>el.addEventListener("input",calcBread));
 [pizzaFlourInput,pizzaWheatInput,pizzaCountInput,pizzaSizeSelect,pizzaHydrationSelect,pizzaYeastSelect].forEach(el=>el.addEventListener("input",calcPizza));
 
